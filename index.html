@@ -1425,6 +1425,44 @@
 .official-release-text h3 {color:var(--wic-teal-dark);margin-top:0}
 .signature-frame {border:2px dashed #93b9c1;background:white;border-radius:12px;overflow:hidden;touch-action:none}
 #signatureCanvas {display:block;width:100%;height:170px;touch-action:none;cursor:crosshair}
+
+/* WV WIC brand refresh — presentation only */
+body{background:radial-gradient(circle at 96% 12%,rgba(0,207,166,.09),transparent 25%),linear-gradient(180deg,#f1f9fa 0%,#fff 62%);font-family:Arial,Helvetica,sans-serif}
+.header{background:#fff;box-shadow:0 4px 24px rgba(0,77,97,.08);border-bottom:0}
+.header-inner{max-width:1150px}
+.brand-mark{background:#fff;border-radius:15px;width:66px;height:66px;box-shadow:0 3px 14px rgba(0,77,97,.08);overflow:hidden}
+.brand-mark img{width:100%;height:100%;object-fit:contain}
+.brand-title{font-size:21px;letter-spacing:-.35px}
+.header-home{border-radius:100px;padding:12px 22px;background:#e9f7f7}
+.hero{position:relative;padding:45px 20px 35px}
+.hero:before{content:"";position:absolute;right:2%;top:8%;width:68px;height:68px;border:10px solid rgba(0,169,206,.18);border-radius:50%;pointer-events:none}
+.hero:after{content:"";position:absolute;left:3%;bottom:3%;width:52px;height:52px;background:radial-gradient(circle,#00cfa6 20%,transparent 24%);background-size:20px 20px;opacity:.35;pointer-events:none}
+.hero h1{font-size:clamp(30px,4vw,45px);letter-spacing:-1.2px}
+.hero p{font-size:17px}
+.wic-brand-strip{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 15px;flex-wrap:wrap}
+.wic-brand-strip img{width:150px;max-height:85px;object-fit:contain}
+.wic-brand-strip .brand-eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--wic-magenta)}
+.home-grid{gap:22px;max-width:930px}
+.home-card,.form-card,.participant-card{border-radius:22px;box-shadow:0 10px 32px rgba(0,77,97,.075);border:1px solid #deebed}
+.home-card{position:relative;overflow:hidden;border-top:5px solid var(--wic-aqua);transition:transform .2s,box-shadow .2s}
+.home-card:nth-child(2){border-top-color:var(--wic-magenta)}
+.home-card:nth-child(3){border-top-color:var(--wic-orange)}
+.home-card:nth-child(4){border-top-color:var(--wic-blue)}
+.home-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(0,77,97,.13)}
+.home-card .icon{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border-radius:18px;background:#e5f9f4;font-size:30px}
+.home-card:nth-child(2) .icon{background:#fcebf3}
+.home-card:nth-child(3) .icon{background:#fff4dc}
+.home-card:nth-child(4) .icon{background:#e5f6fc}
+.form-card{border-top:4px solid var(--wic-aqua)}
+.btn-primary,.capture-button{background:linear-gradient(110deg,#00657f,#007f91);box-shadow:0 6px 15px rgba(0,101,127,.18)}
+.btn,.capture-button,.header-home{transition:filter .15s,transform .15s}
+.btn:hover,.capture-button:hover,.header-home:hover{filter:brightness(.96)}
+.btn:active,.capture-button:active{transform:scale(.99)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid rgba(0,169,206,.45);outline-offset:2px}
+.wic-brand-footer{max-width:1100px;margin:0 auto 35px;padding:22px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.wic-brand-footer img{width:210px;max-width:100%;max-height:58px;object-fit:contain;object-position:left center}
+@media(max-width:640px){.header{padding:12px}.brand-mark{width:50px;height:50px}.brand-title{font-size:16px}.brand-subtitle{font-size:11px}.header-home{padding:10px 12px}.hero{padding:30px 10px}.wic-brand-strip img{width:110px}.home-card{padding:23px}.wic-brand-footer{justify-content:center;text-align:center}}
+
 </style>
 
 </head>
@@ -1447,7 +1485,7 @@
 
     <div class="brand">
 
-      <div class="brand-mark">WIC</div>
+      <div class="brand-mark"><img src="assets/wic-logo.png" alt="WIC logo" onerror="this.style.display='none';this.parentNode.textContent='WIC'"></div>
 
 
 
@@ -1504,6 +1542,7 @@
 
 
     <div class="hero">
+      <div class="wic-brand-strip"><img src="assets/by-your-side.png" alt="By Your Side — pregnancy to five" onerror="this.style.display='none'"><span class="brand-eyebrow">West Virginia WIC</span></div>
 
       <h1>Media Release Registry</h1>
 
@@ -2905,6 +2944,7 @@
 
 
 </main>
+<footer class="wic-brand-footer"><img src="assets/wv-doh-logo.jpg" alt="West Virginia Department of Health" onerror="this.style.display='none'"><span>WV WIC Media Release Registry · Digital release prototype — not approved for operational use</span></footer>
 
 
 
