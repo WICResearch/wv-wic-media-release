@@ -1,0 +1,5086 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <base target="_top">
+
+
+
+  <meta name="viewport"
+
+        content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+  <style>
+
+    :root {
+
+      --wic-teal:#00657f;
+
+      --wic-teal-dark:#004d61;
+
+      --wic-aqua:#00cfa6;
+
+      --wic-green:#006b4f;
+
+      --wic-magenta:#d0006f;
+
+      --wic-orange:#ffae00;
+
+      --wic-blue:#00a9ce;
+
+      --wic-yellow:#ffd24d;
+
+      --ink:#17323d;
+
+      --muted:#60747c;
+
+      --paper:#ffffff;
+
+      --soft:#f3f8f9;
+
+      --line:#d9e6e9;
+
+      --danger:#b42318;
+
+      --danger-soft:#fef3f2;
+
+      --success:#067647;
+
+      --success-soft:#ecfdf3;
+
+      --warning:#b54708;
+
+      --warning-soft:#fffaeb;
+
+      --shadow:0 14px 36px rgba(0,65,82,.10);
+
+    }
+
+
+
+    * {
+
+      box-sizing:border-box;
+
+    }
+
+
+
+    html {
+
+      scroll-behavior:smooth;
+
+    }
+
+
+
+    body {
+
+      margin:0;
+
+      font-family:Arial, Helvetica, sans-serif;
+
+      color:var(--ink);
+
+      background:
+
+        linear-gradient(180deg,#ffffff 0,#f4f9fa 100%);
+
+      min-height:100vh;
+
+    }
+
+
+
+    button,
+
+    input,
+
+    select,
+
+    textarea {
+
+      font:inherit;
+
+    }
+
+
+
+    button {
+
+      touch-action:manipulation;
+
+    }
+
+
+
+    .top-bar {
+
+      height:8px;
+
+      background:
+
+        linear-gradient(
+
+          90deg,
+
+          var(--wic-magenta),
+
+          var(--wic-orange),
+
+          var(--wic-aqua),
+
+          var(--wic-blue)
+
+        );
+
+    }
+
+
+
+    .header {
+
+      background:#fff;
+
+      border-bottom:1px solid var(--line);
+
+      padding:18px 24px;
+
+      position:sticky;
+
+      top:0;
+
+      z-index:50;
+
+    }
+
+
+
+    .header-inner {
+
+      max-width:1100px;
+
+      margin:auto;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:20px;
+
+    }
+
+
+
+    .brand {
+
+      display:flex;
+
+      align-items:center;
+
+      gap:14px;
+
+    }
+
+
+
+    .brand-mark {
+
+      width:52px;
+
+      height:52px;
+
+      border-radius:50%;
+
+      background:var(--wic-teal);
+
+      color:white;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      font-weight:800;
+
+      font-size:17px;
+
+      letter-spacing:.5px;
+
+    }
+
+
+
+    .brand-title {
+
+      font-size:20px;
+
+      font-weight:800;
+
+      color:var(--wic-teal-dark);
+
+    }
+
+
+
+    .brand-subtitle {
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      margin-top:2px;
+
+    }
+
+
+
+    .header-home {
+
+      border:1px solid var(--line);
+
+      background:white;
+
+      color:var(--wic-teal);
+
+      padding:10px 16px;
+
+      border-radius:10px;
+
+      font-weight:700;
+
+      cursor:pointer;
+
+    }
+
+
+
+    main {
+
+      max-width:1100px;
+
+      margin:auto;
+
+      padding:32px 22px 70px;
+
+    }
+
+
+
+    .screen {
+
+      display:none;
+
+    }
+
+
+
+    .screen.active {
+
+      display:block;
+
+    }
+
+
+
+    .hero {
+
+      text-align:center;
+
+      padding:34px 15px 28px;
+
+    }
+
+
+
+    .hero h1 {
+
+      margin:0;
+
+      font-size:36px;
+
+      color:var(--wic-teal-dark);
+
+    }
+
+
+
+    .hero p {
+
+      color:var(--muted);
+
+      font-size:17px;
+
+      max-width:650px;
+
+      margin:12px auto 0;
+
+      line-height:1.6;
+
+    }
+
+
+
+    .home-grid {
+
+      display:grid;
+
+      grid-template-columns:
+
+        repeat(2,minmax(0,1fr));
+
+      gap:20px;
+
+      max-width:850px;
+
+      margin:25px auto;
+
+    }
+
+
+
+    .home-card {
+
+      background:white;
+
+      border:1px solid var(--line);
+
+      border-radius:18px;
+
+      padding:30px;
+
+      min-height:180px;
+
+      box-shadow:var(--shadow);
+
+      cursor:pointer;
+
+      transition:.2s ease;
+
+    }
+
+
+
+    .home-card:hover {
+
+      transform:translateY(-2px);
+
+    }
+
+
+
+    .home-card .icon {
+
+      font-size:36px;
+
+      margin-bottom:16px;
+
+    }
+
+
+
+    .home-card h2 {
+
+      margin:0 0 8px;
+
+      font-size:21px;
+
+      color:var(--wic-teal-dark);
+
+    }
+
+
+
+    .home-card p {
+
+      margin:0;
+
+      color:var(--muted);
+
+      line-height:1.5;
+
+    }
+
+
+
+    .section-title {
+
+      margin-bottom:24px;
+
+    }
+
+
+
+    .section-title h1 {
+
+      margin:0 0 7px;
+
+      color:var(--wic-teal-dark);
+
+      font-size:30px;
+
+    }
+
+
+
+    .section-title p {
+
+      margin:0;
+
+      color:var(--muted);
+
+    }
+
+
+
+    .form-card {
+
+      background:white;
+
+      border:1px solid var(--line);
+
+      border-radius:18px;
+
+      padding:28px;
+
+      box-shadow:var(--shadow);
+
+      margin-bottom:22px;
+
+    }
+
+
+
+    .form-card h2 {
+
+      margin:0 0 7px;
+
+      color:var(--wic-teal-dark);
+
+      font-size:21px;
+
+    }
+
+
+
+    .form-card .description {
+
+      color:var(--muted);
+
+      margin:0 0 22px;
+
+      line-height:1.5;
+
+    }
+
+
+
+    .grid-2 {
+
+      display:grid;
+
+      grid-template-columns:
+
+        repeat(2,minmax(0,1fr));
+
+      gap:18px;
+
+    }
+
+
+
+    .grid-3 {
+
+      display:grid;
+
+      grid-template-columns:
+
+        repeat(3,minmax(0,1fr));
+
+      gap:18px;
+
+    }
+
+
+
+    .field {
+
+      margin-bottom:18px;
+
+    }
+
+
+
+    .field label {
+
+      display:block;
+
+      font-size:14px;
+
+      font-weight:700;
+
+      margin-bottom:7px;
+
+      color:var(--ink);
+
+    }
+
+
+
+    .required {
+
+      color:var(--wic-magenta);
+
+    }
+
+
+
+    input,
+
+    select,
+
+    textarea {
+
+      width:100%;
+
+      border:1px solid #b9cdd2;
+
+      background:white;
+
+      border-radius:10px;
+
+      padding:13px 14px;
+
+      min-height:48px;
+
+      color:var(--ink);
+
+      outline:none;
+
+    }
+
+
+
+    input:focus,
+
+    select:focus,
+
+    textarea:focus {
+
+      border-color:var(--wic-blue);
+
+      box-shadow:0 0 0 3px rgba(0,169,206,.12);
+
+    }
+
+
+
+    textarea {
+
+      resize:vertical;
+
+      min-height:100px;
+
+    }
+
+
+
+    .checkbox-row {
+
+      display:flex;
+
+      align-items:flex-start;
+
+      gap:10px;
+
+      margin:10px 0;
+
+    }
+
+
+
+    .checkbox-row input {
+
+      width:22px;
+
+      min-height:22px;
+
+      height:22px;
+
+      margin-top:1px;
+
+    }
+
+
+
+    .guardian-box {
+
+      display:none;
+
+      margin-top:20px;
+
+      padding:20px;
+
+      background:var(--soft);
+
+      border-radius:12px;
+
+      border:1px solid var(--line);
+
+    }
+
+
+
+    .guardian-box.visible {
+
+      display:block;
+
+    }
+
+
+
+    .notice {
+
+      padding:16px 18px;
+
+      border-radius:12px;
+
+      line-height:1.5;
+
+      margin:18px 0;
+
+    }
+
+
+
+    .notice.info {
+
+      background:#eef9fc;
+
+      border:1px solid #bce5ee;
+
+    }
+
+
+
+    .notice.warning {
+
+      background:var(--warning-soft);
+
+      border:1px solid #fedf89;
+
+    }
+
+
+
+    .notice.success {
+
+      background:var(--success-soft);
+
+      border:1px solid #abefc6;
+
+    }
+
+
+
+    .notice.danger {
+
+      background:var(--danger-soft);
+
+      border:1px solid #fecdca;
+
+    }
+
+
+
+    .camera-area {
+
+      border:2px dashed #a9c5cc;
+
+      background:var(--soft);
+
+      border-radius:16px;
+
+      padding:24px;
+
+      text-align:center;
+
+    }
+
+
+
+    .camera-icon {
+
+      font-size:42px;
+
+      margin-bottom:8px;
+
+    }
+
+
+
+    .capture-button {
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:8px;
+
+      margin-top:12px;
+
+      background:var(--wic-teal);
+
+      color:white;
+
+      border:none;
+
+      border-radius:11px;
+
+      padding:14px 22px;
+
+      min-height:50px;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+    }
+
+
+
+    .file-input {
+
+      position:absolute;
+
+      left:-9999px;
+
+      opacity:0;
+
+    }
+
+
+
+    .preview {
+
+      display:none;
+
+      margin:20px auto 0;
+
+      max-width:380px;
+
+    }
+
+
+
+    .preview.visible {
+
+      display:block;
+
+    }
+
+
+
+    .preview img {
+
+      width:100%;
+
+      max-height:400px;
+
+      object-fit:contain;
+
+      background:white;
+
+      border:1px solid var(--line);
+
+      border-radius:14px;
+
+    }
+
+
+
+    .preview-label {
+
+      color:var(--success);
+
+      font-weight:800;
+
+      margin:8px 0;
+
+    }
+
+
+
+    .permission-options {
+
+      display:grid;
+
+      grid-template-columns:
+
+        repeat(2,minmax(0,1fr));
+
+      gap:15px;
+
+      margin-top:18px;
+
+    }
+
+
+
+    .permission-option {
+
+      border:2px solid var(--line);
+
+      border-radius:14px;
+
+      padding:20px;
+
+      cursor:pointer;
+
+      background:white;
+
+    }
+
+
+
+    .permission-option input {
+
+      width:auto;
+
+      min-height:auto;
+
+      margin-right:8px;
+
+    }
+
+
+
+    .permission-option.approve {
+
+      border-color:#abefc6;
+
+    }
+
+
+
+    .permission-option.decline {
+
+      border-color:#fecdca;
+
+    }
+
+
+
+    .actions {
+
+      display:flex;
+
+      justify-content:flex-end;
+
+      gap:12px;
+
+      margin-top:24px;
+
+      flex-wrap:wrap;
+
+    }
+
+
+
+    .btn {
+
+      border:none;
+
+      border-radius:11px;
+
+      min-height:50px;
+
+      padding:13px 22px;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+    }
+
+
+
+    .btn-primary {
+
+      background:var(--wic-teal);
+
+      color:white;
+
+    }
+
+
+
+    .btn-secondary {
+
+      background:white;
+
+      color:var(--wic-teal);
+
+      border:1px solid var(--wic-teal);
+
+    }
+
+
+
+    .btn-danger {
+
+      background:var(--danger);
+
+      color:white;
+
+    }
+
+
+
+    .btn:disabled {
+
+      opacity:.5;
+
+      cursor:not-allowed;
+
+    }
+
+
+
+    .search-row {
+
+      display:flex;
+
+      gap:12px;
+
+      margin-bottom:24px;
+
+    }
+
+
+
+    .search-row input {
+
+      flex:1;
+
+    }
+
+
+
+    .gallery {
+
+      display:grid;
+
+      grid-template-columns:
+
+        repeat(3,minmax(0,1fr));
+
+      gap:20px;
+
+    }
+
+
+
+    .participant-card {
+
+      background:white;
+
+      border:1px solid var(--line);
+
+      border-radius:16px;
+
+      overflow:hidden;
+
+      box-shadow:var(--shadow);
+
+    }
+
+
+
+    .participant-photo {
+
+      width:100%;
+
+      aspect-ratio:4/3;
+
+      background:var(--soft);
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      color:var(--muted);
+
+      overflow:hidden;
+
+    }
+
+
+
+    .participant-photo img {
+
+      width:100%;
+
+      height:100%;
+
+      object-fit:cover;
+
+    }
+
+
+
+    .participant-info {
+
+      padding:18px;
+
+    }
+
+
+
+    .participant-info h3 {
+
+      margin:0 0 7px;
+
+      color:var(--wic-teal-dark);
+
+    }
+
+
+
+    .participant-info p {
+
+      margin:4px 0;
+
+      color:var(--muted);
+
+      font-size:14px;
+
+    }
+
+
+
+    .badge {
+
+      display:inline-block;
+
+      padding:6px 9px;
+
+      border-radius:100px;
+
+      font-size:12px;
+
+      font-weight:800;
+
+      margin-bottom:9px;
+
+    }
+
+
+
+    .badge.approved {
+
+      background:var(--success-soft);
+
+      color:var(--success);
+
+    }
+
+
+
+    .badge.declined {
+
+      background:var(--danger-soft);
+
+      color:var(--danger);
+
+    }
+
+
+
+    .badge.incomplete,
+
+    .badge.pending {
+
+      background:var(--warning-soft);
+
+      color:var(--warning);
+
+    }
+
+
+
+    .link-button {
+
+      display:inline-block;
+
+      margin-top:10px;
+
+      color:var(--wic-teal);
+
+      font-weight:700;
+
+      text-decoration:none;
+
+    }
+
+
+
+    .empty-state {
+
+      text-align:center;
+
+      padding:45px 20px;
+
+      color:var(--muted);
+
+      background:white;
+
+      border:1px dashed var(--line);
+
+      border-radius:16px;
+
+      grid-column:1/-1;
+
+    }
+
+
+
+    .loader {
+
+      display:none;
+
+      position:fixed;
+
+      inset:0;
+
+      background:rgba(255,255,255,.86);
+
+      z-index:999;
+
+      align-items:center;
+
+      justify-content:center;
+
+    }
+
+
+
+    .loader.visible {
+
+      display:flex;
+
+    }
+
+
+
+    .loader-box {
+
+      text-align:center;
+
+      background:white;
+
+      border:1px solid var(--line);
+
+      border-radius:16px;
+
+      padding:30px 45px;
+
+      box-shadow:var(--shadow);
+
+    }
+
+
+
+    .spinner {
+
+      width:42px;
+
+      height:42px;
+
+      border:4px solid #dcebed;
+
+      border-top-color:var(--wic-teal);
+
+      border-radius:50%;
+
+      animation:spin .8s linear infinite;
+
+      margin:0 auto 15px;
+
+    }
+
+
+
+    @keyframes spin {
+
+      to { transform:rotate(360deg); }
+
+    }
+
+
+
+    .toast {
+
+      position:fixed;
+
+      right:20px;
+
+      bottom:20px;
+
+      max-width:400px;
+
+      background:var(--ink);
+
+      color:white;
+
+      padding:15px 18px;
+
+      border-radius:12px;
+
+      box-shadow:var(--shadow);
+
+      transform:translateY(150%);
+
+      transition:.25s ease;
+
+      z-index:1000;
+
+    }
+
+
+
+    .toast.visible {
+
+      transform:translateY(0);
+
+    }
+
+
+
+    .success-result {
+
+      text-align:center;
+
+      padding:30px;
+
+    }
+
+
+
+    .success-check {
+
+      width:76px;
+
+      height:76px;
+
+      margin:auto;
+
+      border-radius:50%;
+
+      background:var(--success-soft);
+
+      color:var(--success);
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      font-size:38px;
+
+      font-weight:900;
+
+    }
+
+
+
+    .release-id {
+
+      display:inline-block;
+
+      margin:12px 0;
+
+      background:var(--soft);
+
+      padding:9px 15px;
+
+      border-radius:8px;
+
+      font-weight:800;
+
+    }
+
+
+
+    @media(max-width:800px) {
+
+      .home-grid,
+
+      .grid-2,
+
+      .grid-3,
+
+      .permission-options {
+
+        grid-template-columns:1fr;
+
+      }
+
+
+
+      .gallery {
+
+        grid-template-columns:
+
+          repeat(2,minmax(0,1fr));
+
+      }
+
+
+
+      .hero h1 {
+
+        font-size:30px;
+
+      }
+
+    }
+
+
+
+    @media(max-width:520px) {
+
+      main {
+
+        padding:22px 14px 50px;
+
+      }
+
+
+
+      .header {
+
+        padding:12px 14px;
+
+      }
+
+
+
+      .brand-subtitle {
+
+        display:none;
+
+      }
+
+
+
+      .brand-mark {
+
+        width:44px;
+
+        height:44px;
+
+      }
+
+
+
+      .form-card {
+
+        padding:20px;
+
+      }
+
+
+
+      .gallery {
+
+        grid-template-columns:1fr;
+
+      }
+
+
+
+      .search-row {
+
+        flex-direction:column;
+
+      }
+
+    }
+
+  
+.official-release-text {background:#f7fafb;border:1px solid var(--line);padding:18px;border-radius:12px;margin:15px 0 20px;line-height:1.55;max-height:350px;overflow:auto;font-size:14px}
+.official-release-text h3 {color:var(--wic-teal-dark);margin-top:0}
+.signature-frame {border:2px dashed #93b9c1;background:white;border-radius:12px;overflow:hidden;touch-action:none}
+#signatureCanvas {display:block;width:100%;height:170px;touch-action:none;cursor:crosshair}
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="top-bar"></div>
+
+
+
+<header class="header">
+
+  <div class="header-inner">
+
+
+
+    <div class="brand">
+
+      <div class="brand-mark">WIC</div>
+
+
+
+      <div>
+
+        <div class="brand-title">
+
+          WV WIC Media Release Registry
+
+        </div>
+
+
+
+        <div class="brand-subtitle">
+
+          Digital release prototype — not approved for operational use
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <button class="header-home"
+
+            onclick="showScreen('home')">
+
+      Home
+
+    </button>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+
+<main>
+
+
+
+  <!-- HOME -->
+
+  <section id="home"
+
+           class="screen active">
+
+
+
+    <div class="hero">
+
+      <h1>Media Release Registry</h1>
+
+
+
+      <p>
+
+        Manage participant media releases, reference
+
+        photographs and signed release documentation.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="home-grid">
+
+
+
+      <div class="home-card"
+
+           onclick="startNewRelease()">
+
+
+
+        <div class="icon">➕</div>
+
+
+
+        <h2>New Media Release</h2>
+
+
+
+        <p>
+
+          Create a new participant media-release
+
+          record and attach documentation.
+
+        </p>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="home-card"
+
+           onclick="openGallery()">
+
+
+
+        <div class="icon">📷</div>
+
+
+
+        <h2>Approved Participants</h2>
+
+
+
+        <p>
+
+          View a visual gallery of participants
+
+          whose media documentation is complete.
+
+        </p>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="home-card"
+
+           onclick="openSearch()">
+
+
+
+        <div class="icon">🔎</div>
+
+
+
+        <h2>Find a Release</h2>
+
+
+
+        <p>
+
+          Search media-release records by
+
+          participant, event, status or release ID.
+
+        </p>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="home-card"
+
+           onclick="showScreen('events')">
+
+
+
+        <div class="icon">📅</div>
+
+
+
+        <h2>Events</h2>
+
+
+
+        <p>
+
+          Create and manage events associated
+
+          with participant photographs.
+
+        </p>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+
+
+  <!-- NEW RELEASE -->
+
+  <section id="new-release"
+
+           class="screen">
+
+
+
+    <div class="section-title">
+
+      <h1>New Media Release</h1>
+
+
+
+      <p>
+
+        Complete the participant record and
+
+        attach the required documentation.
+
+      </p>
+
+    </div>
+
+
+
+
+
+    <div class="form-card">
+
+
+
+      <h2>1. Participant Information</h2>
+
+
+
+      <p class="description">
+
+        Enter information for the individual
+
+        whose image or likeness may be used.
+
+      </p>
+
+
+
+
+
+      <div class="grid-2">
+
+
+
+        <div class="field">
+
+          <label>
+
+            First Name
+
+            <span class="required">*</span>
+
+          </label>
+
+
+
+          <input id="subjectFirstName"
+
+                 autocomplete="off">
+
+        </div>
+
+
+
+
+
+        <div class="field">
+
+          <label>
+
+            Last Name
+
+            <span class="required">*</span>
+
+          </label>
+
+
+
+          <input id="subjectLastName"
+
+                 autocomplete="off">
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="grid-2">
+
+
+
+        <div class="field">
+
+          <label>
+
+            Subject Relationship
+
+            <span class="required">*</span>
+
+          </label>
+
+
+
+          <select id="subjectRelationship">
+
+
+
+            <option value="">
+
+              Select relationship
+
+            </option>
+
+
+
+            <option value="WIC Participant">
+
+              WIC Participant
+
+            </option>
+
+
+
+            <option value="Parent or Guardian">
+
+              Parent or Guardian
+
+            </option>
+
+
+
+            <option value="Child">
+
+              Child
+
+            </option>
+
+
+
+            <option value="Staff">
+
+              Staff
+
+            </option>
+
+
+
+            <option value="Community Partner">
+
+              Community Partner
+
+            </option>
+
+
+
+            <option value="Other">
+
+              Other
+
+            </option>
+
+
+
+          </select>
+
+        </div>
+
+
+
+
+
+        <div class="field">
+
+          <label>
+
+            Release Date
+
+            <span class="required">*</span>
+
+          </label>
+
+
+
+          <input type="date"
+
+                 id="releaseDate">
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="checkbox-row">
+
+
+
+        <input type="checkbox"
+
+               id="isMinor"
+
+               onchange="toggleGuardian()">
+
+
+
+        <label for="isMinor">
+
+          Subject is under 18 years old
+
+        </label>
+
+
+
+      </div>
+
+
+
+
+
+      <div id="guardianBox"
+
+           class="guardian-box">
+
+
+
+        <strong>
+
+          Parent / Guardian Information
+
+        </strong>
+
+
+
+        <div class="grid-2"
+
+             style="margin-top:15px">
+
+
+
+          <div class="field">
+
+            <label>
+
+              Guardian First Name
+
+              <span class="required">*</span>
+
+            </label>
+
+
+
+            <input id="guardianFirstName">
+
+          </div>
+
+
+
+
+
+          <div class="field">
+
+            <label>
+
+              Guardian Last Name
+
+              <span class="required">*</span>
+
+            </label>
+
+
+
+            <input id="guardianLastName">
+
+          </div>
+
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- EVENT -->
+
+
+
+    <div class="form-card">
+
+
+
+      <h2>2. Event / Activity</h2>
+
+
+
+      <p class="description">
+
+        Associate this release with the event
+
+        or activity where media may be captured.
+
+      </p>
+
+
+
+      <div class="field">
+
+
+
+        <label>Event</label>
+
+
+
+        <select id="eventSelect"
+
+                onchange="eventChanged()">
+
+
+
+          <option value="">
+
+            No event / general release
+
+          </option>
+
+
+
+        </select>
+
+
+
+      </div>
+
+
+
+      <input type="hidden"
+
+             id="eventId">
+
+
+
+      <input type="hidden"
+
+             id="eventName">
+
+
+
+    </div>
+
+
+
+
+
+    <!-- PERMISSION -->
+
+
+
+    <div class="form-card">
+
+
+
+      <h2>3. Media Authorization</h2>
+
+
+
+      <p class="description">
+
+        Record the authorization decision shown
+
+        on the official WV WIC release form.
+
+      </p>
+
+
+
+
+
+      <div class="notice warning"><strong>Prototype:</strong> This form does not replace the official paper release unless WV WIC authorizes a digital-only process.</div>
+
+
+
+
+
+      <div class="permission-options">
+
+
+
+        <label class="permission-option approve">
+
+
+
+          <input type="radio"
+
+                 name="permission"
+
+                 value="APPROVED"
+
+                 onchange="permissionChanged()">
+
+
+
+          <strong>
+
+            ✓ Authorization Given
+
+          </strong>
+
+
+
+          <br><br>
+
+
+
+          Participant or authorized guardian
+
+          approved media use on the official
+
+          release.
+
+
+
+        </label>
+
+
+
+
+
+        <label class="permission-option decline">
+
+
+
+          <input type="radio"
+
+                 name="permission"
+
+                 value="DECLINED"
+
+                 onchange="permissionChanged()">
+
+
+
+          <strong>
+
+            ✕ Authorization Declined
+
+          </strong>
+
+
+
+          <br><br>
+
+
+
+          Participant or authorized guardian
+
+          did not authorize media use.
+
+
+
+        </label>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- REFERENCE PHOTO -->
+
+
+
+    <div class="form-card"
+
+         id="referencePhotoSection">
+
+
+
+      <h2>4. Identification Reference Photo</h2>
+
+
+
+      <p class="description">
+
+        Capture a current photograph so authorized
+
+        staff can visually match this release to
+
+        the correct person.
+
+      </p>
+
+
+
+
+
+      <div class="notice info">
+
+
+
+        <strong>
+
+          Identification photo only
+
+        </strong>
+
+
+
+        <br>
+
+
+
+        This photograph is collected to help
+
+        authorized staff identify the person
+
+        associated with this release record.
+
+        Taking this photograph does not itself
+
+        authorize publication.
+
+
+
+      </div>
+
+
+
+
+
+      <div class="camera-area">
+
+
+
+        <div class="camera-icon">📷</div>
+
+
+
+        <strong>
+
+          Capture Reference Photo
+
+        </strong>
+
+
+
+        <br>
+
+
+
+        <span style="color:var(--muted)">
+
+          On an iPad, this will allow the camera
+
+          to be used.
+
+        </span>
+
+
+
+        <br>
+
+
+
+        
+<button type="button"
+        class="capture-button"
+        onclick="openLiveCamera()">
+  📷 Take Photo
+</button>
+
+<label class="capture-button"
+       for="referencePhotoInput"
+       style="margin-left:10px;">
+  📁 Upload Existing Photo
+</label>
+
+<input type="file"
+       id="referencePhotoInput"
+       class="file-input"
+       accept="image/*"
+       onchange="handleReferencePhoto(event)">
+
+<div id="liveCameraArea"
+     style="display:none; margin-top:20px;">
+
+  <video id="cameraVideo"
+         autoplay
+         playsinline
+         muted
+         style="width:100%; max-width:500px;
+                border-radius:12px;">
+  </video>
+
+  <div class="actions"
+       style="justify-content:center;">
+
+    <button type="button"
+            class="btn btn-primary"
+            onclick="captureLivePhoto()">
+      Capture Photo
+    </button>
+
+    <button type="button"
+            class="btn btn-secondary"
+            onclick="closeLiveCamera()">
+      Cancel Camera
+    </button>
+
+  </div>
+</div>
+
+      </div>
+
+
+
+
+
+      <div id="referencePreview"
+
+           class="preview">
+
+
+
+        <div class="preview-label">
+
+          ✓ Reference photo captured
+
+        </div>
+
+
+
+        <img id="referencePreviewImage">
+
+
+
+        <button
+
+          type="button"
+
+          class="btn btn-secondary"
+
+          style="margin-top:10px"
+
+          onclick="clearReferencePhoto()">
+
+          Retake Photo
+
+        </button>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- DIGITAL RELEASE PROTOTYPE -->
+    <div class="form-card" id="digitalConsentSection">
+      <h2>5. Digital Consent &amp; Signature</h2>
+      <div class="notice warning"><strong>Prototype only:</strong> WV WIC Policy 7.02 currently requires a wet signature and paper retention. Do not use this digital record as an official replacement until agency approval.</div>
+      <p class="description">Policy 7.02 Attachment #1 — Release Form (revision 12/03/25). Review the complete terms before signing.</p>
+      <div class="official-release-text">
+        <h3>RELEASE FORM</h3>
+        <p>I hereby grant the West Virginia WIC Program and their licenses, agents, successors and assigns the right to use my appearance and likeness in photograph(s), videotape(s) and voice recording(s) in their products, catalogs, books, educational products, audiovisual materials, promotional material and publications.</p>
+<p>I hereby grant the West Virginia WIC Program and their licenses, agents, successors and assigns the right to use my written comments and name in promotional material and publications.</p>
+<p>On my own behalf, and on the behalf of my heirs, next of kin, executors, administrators, successors, and assigns, I hereby release the West Virginia WIC Program, its employees, the director and all their agents from any and all claim, liability and damages arising out of the rights granted hereunder, or the exercise thereof.</p>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>Address <span class="required">*</span></label><textarea id="signerAddress" rows="2" placeholder="Street address, city, state, ZIP"></textarea></div>
+        <div class="field"><label>Telephone Number <span class="required">*</span></label><input id="signerPhone" type="tel" placeholder="Phone number"></div>
+      </div>
+      <div class="field"><label>Signer is over 18 years of age <span class="required">*</span></label>
+        <select id="signerOver18"><option value="">Select Yes or No</option><option value="YES">Yes</option><option value="NO">No</option></select>
+      </div>
+      <div class="official-release-text"><h3>USDA Nondiscrimination Statement</h3><p>In accordance with Federal civil rights law and U.S. Department of Agriculture (USDA) civil rights regulations and policies, the USDA, its Agencies, offices, and employees, and institutions participating in or administering USDA programs are prohibited from discriminating based on race, color, national origin, religion, sex, disability, age, marital status, family/parental status, income derived from a public assistance program, political beliefs, or reprisal or retaliation for prior civil rights activity, in any program or activity conducted or funded by USDA (not all bases apply to all programs). Remedies and complaint filing deadlines vary by program or incident. Persons with disabilities who require alternative means of communication for program information (e.g., Braille, large print, audiotape, American Sign Language, etc.) should contact the State or local Agency that administers the program or contact USDA through the Telecommunications Relay Service at 711 (voice and TTY). Additionally, program information may be made available in languages other than English. To file a program discrimination complaint, complete the USDA Program Discrimination Complaint Form, AD-3027, found online at How to File a Program Discrimination Complaint and Policy 7.02 Attachment #1 Revision: 12/03/25 at any USDA office or write a letter addressed to USDA and provide in the letter all of the information requested in the form. To request a copy of the complaint form, call (866) 632-9992. Submit your completed form or letter to USDA by: (1) mail: U.S. Department of Agriculture, Office of the Assistant Secretary for Civil Rights, 1400 Independence Avenue, SW, Mail Stop 9410, Washington, D.C. 20250-9410; (2) fax: (202) 690-7442; or (3) email: program.intake@usda.gov. USDA is an equal opportunity provider, employer, and lender.</p></div>
+      <label class="checkbox-row"><input type="checkbox" id="consentAcknowledged"><span>I have reviewed the complete release language and confirm my authorization decision selected above.</span></label>
+      <div class="field"><label>Subject or Parent/Guardian Signature <span class="required">*</span></label>
+        <div class="signature-frame"><canvas id="signatureCanvas" aria-label="Draw signature using finger, stylus, or mouse"></canvas></div>
+        <div class="actions" style="justify-content:flex-start"><button type="button" class="btn btn-secondary" onclick="clearDigitalSignature()">Clear Signature</button></div>
+        <p class="description">Sign using a finger, stylus, or mouse. This is an electronic signature in a prototype, not an authorized substitute for a wet signature.</p>
+      </div>
+    </div>
+
+    <!-- STAFF -->
+
+
+
+    <div class="form-card">
+
+
+
+      <h2>6. Staff Documentation</h2>
+
+
+
+      <div class="field">
+
+
+
+        <label>
+
+          Staff Member
+
+          <span class="required">*</span>
+
+        </label>
+
+
+
+        <input
+
+          id="staffName"
+
+          placeholder="Employee completing this record">
+
+
+
+      </div>
+
+
+
+
+
+      <div class="field">
+
+
+
+        <label>Notes</label>
+
+
+
+        <textarea
+
+          id="notes"
+
+          placeholder="Optional notes about this release"></textarea>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="actions">
+
+
+
+      <button class="btn btn-secondary"
+
+              onclick="showScreen('home')">
+
+        Cancel
+
+      </button>
+
+
+
+      <button class="btn btn-primary"
+
+              id="saveReleaseButton"
+
+              onclick="submitRelease()">
+
+        Save Media Release
+
+      </button>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+
+
+  <!-- SUCCESS -->
+
+
+
+  <section id="success"
+
+           class="screen">
+
+
+
+    <div class="form-card success-result">
+
+
+
+      <div class="success-check">✓</div>
+
+
+
+      <h1>Release Saved</h1>
+
+
+
+      <p id="successParticipant"></p>
+
+
+
+      <div id="successReleaseId"
+
+           class="release-id"></div>
+
+
+
+      <div id="successStatus"></div>
+
+
+
+      <p id="successRetention"
+
+         style="color:var(--muted)"></p>
+
+
+
+
+
+      <div class="actions"
+
+           style="justify-content:center">
+
+
+
+        <button class="btn btn-primary"
+
+                onclick="startNewRelease()">
+
+          + New Release
+
+        </button>
+
+
+
+        <button class="btn btn-secondary"
+
+                onclick="showScreen('home')">
+
+          Return Home
+
+        </button>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+
+
+  <!-- GALLERY -->
+
+
+
+  <section id="gallery-screen"
+
+           class="screen">
+
+
+
+    <div class="section-title">
+
+
+
+      <h1>Approved Participants</h1>
+
+
+
+      <p>
+
+        Visual lookup of participants with
+
+        completed media documentation.
+
+      </p>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="form-card">
+
+
+
+      <div class="grid-2">
+
+
+
+        <div class="field">
+
+
+
+          <label>Event</label>
+
+
+
+          <select id="galleryEvent"
+
+                  onchange="loadGallery()">
+
+
+
+            <option value="">
+
+              All Events
+
+            </option>
+
+
+
+          </select>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="field">
+
+
+
+          <label>Search Participant</label>
+
+
+
+          <input
+
+            id="gallerySearch"
+
+            placeholder="Start typing a name..."
+
+            oninput="gallerySearchChanged()">
+
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div id="gallery"
+
+         class="gallery"></div>
+
+
+
+  </section>
+
+
+
+
+
+  <!-- SEARCH -->
+
+
+
+  <section id="search-screen"
+
+           class="screen">
+
+
+
+    <div class="section-title">
+
+
+
+      <h1>Find a Release</h1>
+
+
+
+      <p>
+
+        Search all media-release records.
+
+      </p>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="search-row">
+
+
+
+      <input
+
+        id="releaseSearch"
+
+        placeholder="Name, event, status or release ID">
+
+
+
+      <button
+
+        class="btn btn-primary"
+
+        onclick="runReleaseSearch()">
+
+        Search
+
+      </button>
+
+
+
+    </div>
+
+
+
+
+
+    <div id="searchResults"
+
+         class="gallery"></div>
+
+
+
+  </section>
+
+
+
+
+
+  <!-- EVENTS -->
+
+
+
+  <section id="events"
+
+           class="screen">
+
+
+
+    <div class="section-title">
+
+
+
+      <h1>Events</h1>
+
+
+
+      <p>
+
+        Add an event before collecting
+
+        event-specific releases.
+
+      </p>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="form-card">
+
+
+
+      <h2>Add Event</h2>
+
+
+
+
+
+      <div class="grid-2">
+
+
+
+        <div class="field">
+
+
+
+          <label>
+
+            Event Name
+
+            <span class="required">*</span>
+
+          </label>
+
+
+
+          <input id="newEventName">
+
+
+
+        </div>
+
+
+
+
+
+        <div class="field">
+
+
+
+          <label>Event Date</label>
+
+
+
+          <input
+
+            type="date"
+
+            id="newEventDate">
+
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+      <div class="field">
+
+
+
+        <label>Location</label>
+
+
+
+        <input id="newEventLocation">
+
+
+
+      </div>
+
+
+
+
+
+      <div class="actions">
+
+
+
+<button
+
+  type="button"
+
+  class="btn btn-primary"
+
+  id="addEventButton"
+
+  onclick="createEvent();">
+
+  Add Event
+
+</button>
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div id="eventList"
+
+         class="gallery"></div>
+
+
+
+  </section>
+
+
+
+</main>
+
+
+
+
+
+<div id="loader"
+
+     class="loader">
+
+
+
+  <div class="loader-box">
+
+
+
+    <div class="spinner"></div>
+
+
+
+    <strong id="loaderText">
+
+      Saving...
+
+    </strong>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+
+<div id="toast"
+
+     class="toast"></div>
+
+
+
+
+
+<script>
+
+
+
+  let referencePhotoData = '';
+
+  let signatureHasInk = false;
+
+  let eventsCache = [];
+
+  let galleryTimer;
+
+
+
+
+
+  document.addEventListener(
+
+    'DOMContentLoaded',
+
+    function() {
+
+
+
+      setToday();
+
+
+
+      loadEvents();
+
+
+
+    }
+
+  );
+
+
+
+
+
+  function setToday() {
+
+
+
+    const today =
+
+      new Date();
+
+
+
+    const year =
+
+      today.getFullYear();
+
+
+
+    const month =
+
+      String(today.getMonth() + 1)
+
+        .padStart(2,'0');
+
+
+
+    const day =
+
+      String(today.getDate())
+
+        .padStart(2,'0');
+
+
+
+    document.getElementById(
+
+      'releaseDate'
+
+    ).value =
+
+      year + '-' + month + '-' + day;
+
+  }
+
+
+
+
+
+  function showScreen(id) {
+
+
+
+    document
+
+      .querySelectorAll('.screen')
+
+      .forEach(screen =>
+
+        screen.classList.remove('active')
+
+      );
+
+
+
+    document
+
+      .getElementById(id)
+
+      .classList.add('active');
+
+
+
+    window.scrollTo({
+
+      top:0,
+
+      behavior:'smooth'
+
+    });
+
+  }
+
+
+
+
+
+  function startNewRelease() {
+
+
+
+    resetReleaseForm();
+
+
+
+    showScreen('new-release');
+
+  }
+
+
+
+
+
+  function toggleGuardian() {
+
+
+
+    const checked =
+
+      document
+
+        .getElementById('isMinor')
+
+        .checked;
+
+
+
+    document
+
+      .getElementById('guardianBox')
+
+      .classList
+
+      .toggle('visible',checked);
+
+  }
+
+
+
+
+
+  function permissionChanged() {
+
+
+
+    const permission =
+
+      getPermission();
+
+
+
+    const section =
+
+      document.getElementById(
+
+        'referencePhotoSection'
+
+      );
+
+
+
+    if (permission === 'DECLINED') {
+
+
+
+      section.style.opacity = '.45';
+
+
+
+      clearReferencePhoto();
+
+
+
+    } else {
+
+
+
+      section.style.opacity = '1';
+
+
+
+    }
+
+  }
+
+
+
+
+
+  function getPermission() {
+
+
+
+    const selected =
+
+      document.querySelector(
+
+        'input[name="permission"]:checked'
+
+      );
+
+
+
+    return selected
+
+      ? selected.value
+
+      : '';
+
+  }
+
+
+
+
+
+  
+let cameraStream = null;
+
+async function openLiveCamera() {
+  const area = document.getElementById('liveCameraArea');
+  const video = document.getElementById('cameraVideo');
+
+  try {
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
+      throw new Error('Camera access is unavailable in this browser.');
+    }
+
+    closeLiveCamera();
+
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { facingMode: 'environment' }
+    });
+
+    video.srcObject = cameraStream;
+    area.style.display = 'block';
+    await video.play();
+
+  } catch (error) {
+    closeLiveCamera();
+    showToast('Unable to open camera: ' + error.message);
+  }
+}
+
+function captureLivePhoto() {
+  const video = document.getElementById('cameraVideo');
+
+  if (!cameraStream || !video.videoWidth) {
+    showToast('Camera is not ready yet.');
+    return;
+  }
+
+  const canvas = document.createElement('canvas');
+  const scale = Math.min(
+    1,
+    1200 / Math.max(video.videoWidth, video.videoHeight)
+  );
+
+  canvas.width = Math.round(video.videoWidth * scale);
+  canvas.height = Math.round(video.videoHeight * scale);
+
+  canvas.getContext('2d').drawImage(
+    video, 0, 0, canvas.width, canvas.height
+  );
+
+  referencePhotoData = canvas.toDataURL('image/jpeg', 0.82);
+
+  document.getElementById('referencePreviewImage').src =
+    referencePhotoData;
+
+  document.getElementById('referencePreview')
+    .classList.add('visible');
+
+  closeLiveCamera();
+  showToast('Reference photo captured.');
+}
+
+function closeLiveCamera() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+
+  const video = document.getElementById('cameraVideo');
+  video.pause();
+  video.srcObject = null;
+
+  document.getElementById('liveCameraArea').style.display = 'none';
+}
+
+  function handleReferencePhoto(event) {
+
+
+
+    const file =
+
+      event.target.files[0];
+
+
+
+    if (!file) return;
+
+
+
+    compressImage(
+
+      file,
+
+      1200,
+
+      .82,
+
+      function(dataUrl) {
+
+
+
+        referencePhotoData =
+
+          dataUrl;
+
+
+
+        document
+
+          .getElementById(
+
+            'referencePreviewImage'
+
+          )
+
+          .src = dataUrl;
+
+
+
+        document
+
+          .getElementById(
+
+            'referencePreview'
+
+          )
+
+          .classList
+
+          .add('visible');
+
+      }
+
+    );
+
+  }
+
+
+
+
+
+  function compressImage(
+
+    file,
+
+    maxDimension,
+
+    quality,
+
+    callback
+
+  ) {
+
+
+
+    const reader =
+
+      new FileReader();
+
+
+
+    reader.onload =
+
+      function(e) {
+
+
+
+        const img =
+
+          new Image();
+
+
+
+        img.onload =
+
+          function() {
+
+
+
+            let width =
+
+              img.width;
+
+
+
+            let height =
+
+              img.height;
+
+
+
+            if (
+
+              width > maxDimension ||
+
+              height > maxDimension
+
+            ) {
+
+
+
+              const ratio =
+
+                Math.min(
+
+                  maxDimension / width,
+
+                  maxDimension / height
+
+                );
+
+
+
+              width =
+
+                Math.round(
+
+                  width * ratio
+
+                );
+
+
+
+              height =
+
+                Math.round(
+
+                  height * ratio
+
+                );
+
+            }
+
+
+
+
+
+            const canvas =
+
+              document.createElement(
+
+                'canvas'
+
+              );
+
+
+
+            canvas.width =
+
+              width;
+
+
+
+            canvas.height =
+
+              height;
+
+
+
+
+
+            const ctx =
+
+              canvas.getContext('2d');
+
+
+
+            ctx.drawImage(
+
+              img,
+
+              0,
+
+              0,
+
+              width,
+
+              height
+
+            );
+
+
+
+
+
+            callback(
+
+              canvas.toDataURL(
+
+                'image/jpeg',
+
+                quality
+
+              )
+
+            );
+
+          };
+
+
+
+        img.src =
+
+          e.target.result;
+
+      };
+
+
+
+    reader.readAsDataURL(file);
+
+  }
+
+
+
+
+
+  function clearReferencePhoto() {
+
+
+
+    referencePhotoData = '';
+
+
+
+    document.getElementById(
+
+      'referencePhotoInput'
+
+    ).value = '';
+
+
+
+    document.getElementById(
+
+      'referencePreview'
+
+    ).classList.remove(
+
+      'visible'
+
+    );
+
+  }
+
+
+
+
+
+  function submitRelease() {
+  const permission = getPermission();
+  const data = {
+    subjectFirstName:value('subjectFirstName'), subjectLastName:value('subjectLastName'),
+    subjectRelationship:value('subjectRelationship'), releaseDate:value('releaseDate'),
+    isMinor:document.getElementById('isMinor').checked,
+    guardianFirstName:value('guardianFirstName'), guardianLastName:value('guardianLastName'),
+    eventId:value('eventId'), eventName:value('eventName'), permissionStatus:permission,
+    referencePhoto:permission === 'APPROVED' ? referencePhotoData : '',
+    signerAddress:value('signerAddress'), signerPhone:value('signerPhone'),
+    signerOver18:value('signerOver18'),
+    consentAcknowledged:document.getElementById('consentAcknowledged').checked,
+    signatureImage:signatureHasInk ? document.getElementById('signatureCanvas').toDataURL('image/png') : '',
+    staffName:value('staffName'), notes:value('notes'),
+    consentVersion:'Policy 7.02 Attachment #1 Revision 12/03/25'
+  };
+  if (!validateForm(data)) return;
+  showLoader('Saving prototype digital release...');
+  google.script.run.withSuccessHandler(function(result) {
+    hideLoader(); showSuccess(result);
+  }).withFailureHandler(function(error) {
+    hideLoader(); showToast(error && error.message ? error.message : String(error));
+  }).saveDigitalRelease(data);
+}
+
+
+
+
+
+
+
+  function validateForm(data) {
+  if (!data.subjectFirstName || !data.subjectLastName || !data.subjectRelationship || !data.releaseDate || !data.staffName) {
+    showToast('Complete the participant name, relationship, release date and staff name.'); return false;
+  }
+  if (data.isMinor && (!data.guardianFirstName || !data.guardianLastName)) {
+    showToast('Enter parent or guardian information for a minor.'); return false;
+  }
+  if (!data.permissionStatus) { showToast('Choose authorization given or declined.'); return false; }
+  if (!data.signerAddress || !data.signerPhone || !data.signerOver18) {
+    showToast('Complete address, phone number and over-18 answer.'); return false;
+  }
+  if (data.isMinor && data.signerOver18 !== 'YES') {
+    showToast('A parent or guardian aged 18 or older must sign for a minor.'); return false;
+  }
+  if (!data.consentAcknowledged || !data.signatureImage) {
+    showToast('Read the release, check acknowledgment, and sign in the signature box.'); return false;
+  }
+  if (data.permissionStatus === 'APPROVED' && !referencePhotoData) {
+    showToast('Take an identification reference photo before saving.'); return false;
+  }
+  return true;
+}
+
+
+
+
+
+
+
+  function showSuccess(result) {
+
+
+
+    document.getElementById(
+
+      'successParticipant'
+
+    ).textContent =
+
+      result.participant;
+
+
+
+
+
+    document.getElementById(
+
+      'successReleaseId'
+
+    ).textContent =
+
+      result.releaseId;
+
+
+
+
+
+    const status =
+
+      document.getElementById(
+
+        'successStatus'
+
+      );
+
+
+
+
+
+    if (
+
+      result.status === 'APPROVED'
+
+    ) {
+
+
+
+      status.innerHTML =
+
+        '<div class="notice success">' +
+
+        '<strong>PROTOTYPE — NOT OFFICIALLY APPROVED</strong><br>' +
+
+        'Prototype record saved — not cleared for official media use.' +
+
+        '</div>';
+
+
+
+    } else if (
+
+      result.status === 'DECLINED'
+
+    ) {
+
+
+
+      status.innerHTML =
+
+        '<div class="notice danger">' +
+
+        '<strong>PROTOTYPE — DECLINED — DO NOT USE</strong>' +
+
+        '</div>';
+
+
+
+    } else {
+
+
+
+      status.innerHTML =
+
+        '<div class="notice warning">' +
+
+        '<strong>🟡 ' +
+
+        escapeHtml(result.status) +
+
+        '</strong><br>' +
+
+        'This record is not cleared for media use.' +
+
+        '</div>';
+
+    }
+
+
+
+
+
+    document.getElementById(
+
+      'successRetention'
+
+    ).textContent =
+
+      'Proposed retention through: ' +
+
+      result.retentionUntil;
+
+
+
+
+
+    showScreen('success');
+
+
+
+    loadEvents();
+
+  }
+
+
+
+
+
+  function loadEvents() {
+
+
+
+    google.script.run
+
+
+
+      .withSuccessHandler(
+
+        function(events) {
+
+
+
+          eventsCache =
+
+            events || [];
+
+
+
+          populateEventSelectors();
+
+
+
+          renderEventList();
+
+        }
+
+      )
+
+
+
+      .withFailureHandler(
+
+        function(error) {
+
+
+
+          console.error(error);
+
+        }
+
+      )
+
+
+
+      .getEvents();
+
+  }
+
+
+
+
+
+  function populateEventSelectors() {
+
+
+
+    const releaseSelect =
+
+      document.getElementById(
+
+        'eventSelect'
+
+      );
+
+
+
+    const gallerySelect =
+
+      document.getElementById(
+
+        'galleryEvent'
+
+      );
+
+
+
+
+
+    releaseSelect.innerHTML =
+
+      '<option value="">' +
+
+      'No event / general release' +
+
+      '</option>';
+
+
+
+
+
+    gallerySelect.innerHTML =
+
+      '<option value="">' +
+
+      'All Events' +
+
+      '</option>';
+
+
+
+
+
+    eventsCache.forEach(
+
+      function(event) {
+
+
+
+        const label =
+
+          event.name +
+
+          (
+
+            event.date
+
+              ? ' — ' + event.date
+
+              : ''
+
+          );
+
+
+
+
+
+        releaseSelect
+
+          .insertAdjacentHTML(
+
+            'beforeend',
+
+
+
+            '<option value="' +
+
+            escapeHtml(event.id) +
+
+            '">' +
+
+            escapeHtml(label) +
+
+            '</option>'
+
+          );
+
+
+
+
+
+        gallerySelect
+
+          .insertAdjacentHTML(
+
+            'beforeend',
+
+
+
+            '<option value="' +
+
+            escapeHtml(event.name) +
+
+            '">' +
+
+            escapeHtml(label) +
+
+            '</option>'
+
+          );
+
+      }
+
+    );
+
+  }
+
+
+
+
+
+  function eventChanged() {
+
+
+
+    const selectedId =
+
+      value('eventSelect');
+
+
+
+    const event =
+
+      eventsCache.find(
+
+        item =>
+
+          String(item.id) ===
+
+          String(selectedId)
+
+      );
+
+
+
+
+
+    document.getElementById(
+
+      'eventId'
+
+    ).value =
+
+      event ? event.id : '';
+
+
+
+
+
+    document.getElementById(
+
+      'eventName'
+
+    ).value =
+
+      event ? event.name : '';
+
+  }
+
+
+
+
+
+  function createEvent() {
+
+
+
+  const eventName =
+
+    document.getElementById('newEventName').value.trim();
+
+
+
+  const eventDate =
+
+    document.getElementById('newEventDate').value;
+
+
+
+  const eventLocation =
+
+    document.getElementById('newEventLocation').value.trim();
+
+
+
+
+
+  if (!eventName) {
+
+
+
+    showToast('Enter an event name.');
+
+
+
+    return;
+
+  }
+
+
+
+
+
+  const eventData = {
+
+    name: eventName,
+
+    date: eventDate,
+
+    location: eventLocation
+
+  };
+
+
+
+
+
+  showLoader('Creating event...');
+
+
+
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+
+
+      hideLoader();
+
+
+
+      document.getElementById('newEventName').value = '';
+
+      document.getElementById('newEventDate').value = '';
+
+      document.getElementById('newEventLocation').value = '';
+
+
+
+      showToast('Event created successfully.');
+
+
+
+      loadEvents();
+
+
+
+    })
+
+    .withFailureHandler(function(error) {
+
+
+
+      hideLoader();
+
+
+
+      console.error('Add Event Error:', error);
+
+
+
+      showToast(
+
+        'Unable to create event: ' +
+
+        (error && error.message
+
+          ? error.message
+
+          : String(error))
+
+      );
+
+
+
+    })
+
+    .addEvent(eventData);
+
+}
+
+
+
+
+
+  function renderEventList() {
+
+
+
+    const container =
+
+      document.getElementById(
+
+        'eventList'
+
+      );
+
+
+
+
+
+    if (!eventsCache.length) {
+
+
+
+      container.innerHTML =
+
+        '<div class="empty-state">' +
+
+        'No events have been added yet.' +
+
+        '</div>';
+
+
+
+      return;
+
+    }
+
+
+
+
+
+    container.innerHTML =
+
+      eventsCache.map(
+
+        function(event) {
+
+
+
+          return `
+
+            <div class="participant-card">
+
+              <div class="participant-info">
+
+
+
+                <span class="badge approved">
+
+                  ACTIVE
+
+                </span>
+
+
+
+                <h3>
+
+                  ${escapeHtml(event.name)}
+
+                </h3>
+
+
+
+                <p>
+
+                  ${escapeHtml(event.date || '')}
+
+                </p>
+
+
+
+                <p>
+
+                  ${escapeHtml(event.location || '')}
+
+                </p>
+
+
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+
+      ).join('');
+
+  }
+
+
+
+
+
+  function openGallery() {
+
+
+
+    showScreen(
+
+      'gallery-screen'
+
+    );
+
+
+
+    loadGallery();
+
+  }
+
+
+
+
+
+  function gallerySearchChanged() {
+
+
+
+    clearTimeout(
+
+      galleryTimer
+
+    );
+
+
+
+    galleryTimer =
+
+      setTimeout(
+
+        loadGallery,
+
+        350
+
+      );
+
+  }
+
+
+
+
+
+  function loadGallery() {
+
+
+
+    const filters = {
+
+
+
+      eventName:
+
+        value('galleryEvent'),
+
+
+
+      search:
+
+        value('gallerySearch')
+
+    };
+
+
+
+
+
+    const container =
+
+      document.getElementById(
+
+        'gallery'
+
+      );
+
+
+
+
+
+    container.innerHTML =
+
+      '<div class="empty-state">' +
+
+      'Loading approved participants...' +
+
+      '</div>';
+
+
+
+
+
+    google.script.run
+
+
+
+      .withSuccessHandler(
+
+        function(records) {
+
+
+
+          renderGallery(
+
+            records,
+
+            container
+
+          );
+
+        }
+
+      )
+
+
+
+      .withFailureHandler(
+
+        function(error) {
+
+
+
+          container.innerHTML =
+
+            '<div class="empty-state">' +
+
+            escapeHtml(error.message) +
+
+            '</div>';
+
+        }
+
+      )
+
+
+
+      .getApprovedParticipants(
+
+        filters
+
+      );
+
+  }
+
+
+
+
+
+  function renderGallery(
+
+    records,
+
+    container
+
+  ) {
+
+
+
+    if (!records.length) {
+
+
+
+      container.innerHTML =
+
+        '<div class="empty-state">' +
+
+        'No approved participants match this search.' +
+
+        '</div>';
+
+
+
+      return;
+
+    }
+
+
+
+
+
+    container.innerHTML =
+
+      records.map(
+
+        function(record) {
+
+
+
+          return `
+
+            <div class="participant-card">
+
+
+
+              <div class="participant-photo">
+
+
+
+                ${
+
+                  record.referencePhotoUrl
+
+                    ? `<img src="${escapeAttribute(record.referencePhotoUrl)}"
+
+                            alt="Reference photograph">`
+
+                    : 'No reference photo'
+
+                }
+
+
+
+              </div>
+
+
+
+              <div class="participant-info">
+
+
+
+                <span class="badge approved">
+
+                  ✓ APPROVED
+
+                </span>
+
+
+
+                <h3>
+
+                  ${escapeHtml(record.firstName)}
+
+                  ${escapeHtml(record.lastName)}
+
+                </h3>
+
+
+
+                <p>
+
+                  ${escapeHtml(record.eventName || 'General release')}
+
+                </p>
+
+
+
+                <p>
+
+                  Release:
+
+                  ${escapeHtml(record.releaseDate)}
+
+                </p>
+
+
+
+                <p>
+
+                  Retain through:
+
+                  ${escapeHtml(record.retentionUntil)}
+
+                </p>
+
+
+
+                ${
+
+                  record.signedReleaseUrl
+
+                    ? `<a class="link-button"
+
+                          href="${escapeAttribute(record.signedReleaseUrl)}"
+
+                          target="_blank">
+
+                          View Signed Release
+
+                       </a>`
+
+                    : ''
+
+                }
+
+
+
+              </div>
+
+
+
+            </div>
+
+          `;
+
+        }
+
+      ).join('');
+
+  }
+
+
+
+
+
+  function openSearch() {
+
+
+
+    showScreen(
+
+      'search-screen'
+
+    );
+
+
+
+    runReleaseSearch();
+
+  }
+
+
+
+
+
+  function runReleaseSearch() {
+
+
+
+    const query =
+
+      value('releaseSearch');
+
+
+
+    const container =
+
+      document.getElementById(
+
+        'searchResults'
+
+      );
+
+
+
+
+
+    container.innerHTML =
+
+      '<div class="empty-state">' +
+
+      'Searching...' +
+
+      '</div>';
+
+
+
+
+
+    google.script.run
+
+
+
+      .withSuccessHandler(
+
+        function(records) {
+
+
+
+          renderSearchResults(
+
+            records
+
+          );
+
+        }
+
+      )
+
+
+
+      .withFailureHandler(
+
+        function(error) {
+
+
+
+          container.innerHTML =
+
+            '<div class="empty-state">' +
+
+            escapeHtml(error.message) +
+
+            '</div>';
+
+        }
+
+      )
+
+
+
+      .searchReleases(query);
+
+  }
+
+
+
+
+
+  function renderSearchResults(
+
+    records
+
+  ) {
+
+
+
+    const container =
+
+      document.getElementById(
+
+        'searchResults'
+
+      );
+
+
+
+
+
+    if (!records.length) {
+
+
+
+      container.innerHTML =
+
+        '<div class="empty-state">' +
+
+        'No releases found.' +
+
+        '</div>';
+
+
+
+      return;
+
+    }
+
+
+
+
+
+    container.innerHTML =
+
+      records.map(
+
+        function(record) {
+
+
+
+          const statusClass =
+
+            String(record.status)
+
+              .toLowerCase();
+
+
+
+
+
+          return `
+
+            <div class="participant-card">
+
+
+
+              <div class="participant-info">
+
+
+
+                <span class="badge ${escapeHtml(statusClass)}">
+
+                  ${escapeHtml(record.status)}
+
+                </span>
+
+
+
+                <h3>
+
+                  ${escapeHtml(record.participant)}
+
+                </h3>
+
+
+
+                <p>
+
+                  ${escapeHtml(record.releaseId)}
+
+                </p>
+
+
+
+                <p>
+
+                  ${escapeHtml(record.eventName || 'General release')}
+
+                </p>
+
+
+
+                <p>
+
+                  Release:
+
+                  ${escapeHtml(record.releaseDate)}
+
+                </p>
+
+
+
+                ${
+
+                  record.signedReleaseUrl
+
+                    ? `<a class="link-button"
+
+                          href="${escapeAttribute(record.signedReleaseUrl)}"
+
+                          target="_blank">
+
+                          View Signed Release
+
+                       </a>`
+
+                    : ''
+
+                }
+
+
+
+              </div>
+
+
+
+            </div>
+
+          `;
+
+        }
+
+      ).join('');
+
+  }
+
+
+
+
+
+  function resetReleaseForm() {
+
+
+
+    [
+
+      'subjectFirstName',
+
+      'subjectLastName',
+
+      'guardianFirstName',
+
+      'guardianLastName',
+
+      'staffName',
+
+      'notes'
+
+    ].forEach(
+
+      id =>
+
+        document.getElementById(id)
+
+          .value = ''
+
+    );
+
+
+
+
+
+    document.getElementById(
+
+      'subjectRelationship'
+
+    ).value = '';
+
+
+
+
+
+    document.getElementById(
+
+      'eventSelect'
+
+    ).value = '';
+
+
+
+
+
+    document.getElementById(
+
+      'eventId'
+
+    ).value = '';
+
+
+
+
+
+    document.getElementById(
+
+      'eventName'
+
+    ).value = '';
+
+
+
+
+
+    document.getElementById(
+
+      'isMinor'
+
+    ).checked = false;
+
+
+
+
+
+    document.getElementById('consentAcknowledged').checked = false;
+    document.getElementById('signerOver18').value = '';
+
+
+
+
+
+    document
+
+      .querySelectorAll(
+
+        'input[name="permission"]'
+
+      )
+
+      .forEach(
+
+        radio =>
+
+          radio.checked = false
+
+      );
+
+
+
+
+
+    toggleGuardian();
+
+
+
+    clearReferencePhoto();
+
+
+
+    clearDigitalSignature();
+
+
+
+    setToday();
+
+
+
+    document.getElementById(
+
+      'referencePhotoSection'
+
+    ).style.opacity = '1';
+
+  }
+
+
+
+
+
+  function value(id) {
+
+
+
+    return String(
+
+      document
+
+        .getElementById(id)
+
+        .value || ''
+
+    ).trim();
+
+  }
+
+
+
+
+
+  function showLoader(text) {
+
+
+
+    document.getElementById(
+
+      'loaderText'
+
+    ).textContent =
+
+      text || 'Working...';
+
+
+
+    document.getElementById(
+
+      'loader'
+
+    ).classList.add(
+
+      'visible'
+
+    );
+
+  }
+
+
+
+
+
+  function hideLoader() {
+
+
+
+    document.getElementById(
+
+      'loader'
+
+    ).classList.remove(
+
+      'visible'
+
+    );
+
+  }
+
+
+
+
+
+  function showToast(message) {
+
+
+
+    const toast =
+
+      document.getElementById(
+
+        'toast'
+
+      );
+
+
+
+    toast.textContent =
+
+      message;
+
+
+
+    toast.classList.add(
+
+      'visible'
+
+    );
+
+
+
+
+
+    setTimeout(
+
+      function() {
+
+
+
+        toast.classList.remove(
+
+          'visible'
+
+        );
+
+
+
+      },
+
+      4500
+
+    );
+
+  }
+
+
+
+
+
+  function escapeHtml(value) {
+
+
+
+    return String(value || '')
+
+      .replace(/&/g,'&amp;')
+
+      .replace(/</g,'&lt;')
+
+      .replace(/>/g,'&gt;')
+
+      .replace(/"/g,'&quot;')
+
+      .replace(/'/g,'&#039;');
+
+  }
+
+
+
+
+
+  function escapeAttribute(value) {
+
+
+
+    return escapeHtml(value);
+
+  }
+
+
+
+
+function initDigitalSignature() {
+  const canvas = document.getElementById('signatureCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  function resize() {
+    const old = signatureHasInk ? canvas.toDataURL('image/png') : null;
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width) return;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(170 * ratio);
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+    ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#17323d';
+    if (old) { const im = new Image(); im.onload = function(){ctx.drawImage(im,0,0,rect.width,170);}; im.src=old; }
+  }
+  function position(e) { const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+  canvas.addEventListener('pointerdown', function(e){e.preventDefault();resizeIfNeeded();drawing=true;canvas.setPointerCapture(e.pointerId);const p=position(e);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+.1,p.y+.1);ctx.stroke();signatureHasInk=true;});
+  canvas.addEventListener('pointermove',function(e){if(!drawing)return;e.preventDefault();const p=position(e);ctx.lineTo(p.x,p.y);ctx.stroke();});
+  ['pointerup','pointercancel','lostpointercapture'].forEach(function(name){canvas.addEventListener(name,function(){drawing=false;});});
+  function resizeIfNeeded(){if(!canvas.width)resize();}
+  resize();
+  window.addEventListener('resize',resize);
+}
+function clearDigitalSignature(){
+  const canvas=document.getElementById('signatureCanvas');
+  if(canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+  signatureHasInk=false;
+}
+</script>
+
+
+
+</body>
+
+</html>
