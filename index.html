@@ -3643,7 +3643,11 @@ function closeLiveCamera() {
     consentVersion:'Policy 7.02 Attachment #1 Revision 12/03/25'
   };
   if (!validateForm(data)) return;
-  showLoader('Saving prototype digital release...');
+  if (!window.google || !google.script || !google.script.run) {
+    showToast('Saving is not connected on this GitHub website yet. No release was submitted. Please contact your WIC tool administrator.');
+    return;
+  }
+  showLoader('Saving digital release...');
   google.script.run.withSuccessHandler(function(result) {
     hideLoader(); showSuccess(result);
   }).withFailureHandler(function(error) {
