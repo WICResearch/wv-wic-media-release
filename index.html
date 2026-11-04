@@ -3165,6 +3165,9 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 
     showScreen('new-release');
 
+    // Initialize after the form becomes visible so the canvas has a real width.
+    initDigitalSignature();
+
   }
 
 
@@ -5132,6 +5135,8 @@ function closeLiveCamera() {
 function initDigitalSignature() {
   const canvas = document.getElementById('signatureCanvas');
   if (!canvas) return;
+  if (canvas.dataset.signatureInitialized === 'true') return;
+  canvas.dataset.signatureInitialized = 'true';
   const ctx = canvas.getContext('2d');
   let drawing = false;
   function resize() {
