@@ -3293,7 +3293,7 @@ async function openLiveCamera() {
 
     cameraStream = await navigator.mediaDevices.getUserMedia({
       audio: false,
-      video: { facingMode: 'environment' }
+      video: { facingMode: 'user' }
     });
 
     video.srcObject = cameraStream;
@@ -3742,9 +3742,9 @@ function closeLiveCamera() {
 
         '<div class="notice success">' +
 
-        '<strong>PROTOTYPE — NOT OFFICIALLY APPROVED</strong><br>' +
+        '<strong>Release saved successfully.</strong><br>' +
 
-        'Prototype record saved — not cleared for official media use.' +
+        'Media authorization recorded. Staff must verify the release before use.' +
 
         '</div>';
 
@@ -3762,7 +3762,7 @@ function closeLiveCamera() {
 
         '<div class="notice danger">' +
 
-        '<strong>PROTOTYPE — DECLINED — DO NOT USE</strong>' +
+        '<strong>Release saved — media authorization declined.</strong>' +
 
         '</div>';
 
@@ -3798,7 +3798,7 @@ function closeLiveCamera() {
 
     ).textContent =
 
-      'Proposed retention through: ' +
+      'Retention through: ' +
 
       result.retentionUntil;
 
