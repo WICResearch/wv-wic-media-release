@@ -2461,6 +2461,18 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 
 
       <h2>6. Staff Documentation</h2>
+      <div class="field">
+        <label>Agency completing this release <span class="required">*</span></label>
+        <p class="description">Select the agency responsible for this release. Staff can assist the participant with this section.</p>
+        <div class="permission-options" role="group" aria-label="Agency type">
+          <label class="permission-option"><input type="radio" name="staffAgencyType" value="STATE" onchange="staffAgencyChanged()" required> <strong>State WIC Office</strong></label>
+          <label class="permission-option"><input type="radio" name="staffAgencyType" value="LOCAL" onchange="staffAgencyChanged()" required> <strong>Local WIC Agency</strong></label>
+        </div>
+        <div id="localAgencyField" style="display:none;margin-top:12px">
+          <label for="staffAgencyName">Local agency name <span class="required">*</span></label>
+          <input id="staffAgencyName" placeholder="Enter the official local agency name" autocomplete="organization">
+        </div>
+      </div>
 
 
 
@@ -3639,7 +3651,10 @@ function closeLiveCamera() {
     signerOver18:value('signerOver18'),
     consentAcknowledged:document.getElementById('consentAcknowledged').checked,
     signatureImage:signatureHasInk ? document.getElementById('signatureCanvas').toDataURL('image/png') : '',
-    staffName:value('staffName'), notes:value('notes'),
+    staffName:value('staffName'),
+    agencyType:document.querySelector('input[name="staffAgencyType"]:checked')?.value || '',
+    agencyName:document.querySelector('input[name="staffAgencyType"]:checked')?.value === 'STATE' ? 'State WIC Office' : value('staffAgencyName'),
+    notes:value('notes'),
     consentVersion:'Policy 7.02 Attachment #1 Revision 12/03/25'
   };
   if (!validateForm(data)) return;
@@ -3661,7 +3676,16 @@ function closeLiveCamera() {
 
 
 
+  function staffAgencyChanged() {
+    const type = document.querySelector('input[name="staffAgencyType"]:checked')?.value || '';
+    document.getElementById('localAgencyField').style.display = type === 'LOCAL' ? 'block' : 'none';
+    document.getElementById('staffAgencyName').required = type === 'LOCAL';
+  }
+
   function validateForm(data) {
+    if (!['STATE','LOCAL'].includes(data.agencyType) || !data.agencyName || (data.agencyType === 'LOCAL' && !data.agencyName.trim())) {
+      showToast('Select State WIC Office or Local WIC Agency and provide the local agency name if applicable.'); return false;
+    }
   if (!data.subjectFirstName || !data.subjectLastName || !data.subjectRelationship || !data.releaseDate || !data.staffName) {
     showToast('Complete the participant name, relationship, release date and staff name.'); return false;
   }
@@ -4841,6 +4865,9 @@ function closeLiveCamera() {
 
 
   function resetReleaseForm() {
+    document.querySelectorAll('input[name="staffAgencyType"]').forEach(radio => radio.checked = false);
+    document.getElementById('staffAgencyName').value = '';
+    staffAgencyChanged();
 
 
 
