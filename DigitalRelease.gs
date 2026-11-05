@@ -20,6 +20,10 @@ function saveDigitalRelease(data) {
       data.consentAcknowledged !== true || !data.signatureImage) {
     throw new Error('Missing required digital release information.');
   }
+  if (!['STATE','LOCAL'].includes(data.agencyType) || !String(data.agencyName || '').trim() ||
+      (data.agencyType === 'STATE' && data.agencyName !== 'State WIC Office')) {
+    throw new Error('A valid staff agency selection is required.');
+  }
   if (data.isMinor && (!data.guardianFirstName || !data.guardianLastName || data.signerOver18 !== 'YES')) {
     throw new Error('An adult parent/guardian is required for a minor.');
   }
@@ -42,6 +46,13 @@ function saveDigitalRelease(data) {
       'Consent_Acknowledged','Signature_Captured','Staff_Name','Notes','PDF_URL',
       'Reference_Photo_URL','Submitted_At','Record_Status'];
     if (sheet.getLastRow() === 0) sheet.appendRow(headers);
+    const existingHeaders = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
+    ['Agency_Type','Agency_Name'].forEach(function(h){
+      if (existingHeaders.indexOf(h) === -1) {
+        sheet.getRange(1,sheet.getLastColumn()+1).setValue(h);
+        existingHeaders.push(h);
+      }
+    });
     const folder = DriveApp.getFolderById(DIGITAL_RELEASE_PROTO.FOLDER_ID);
     const subfolder = digitalProtoFolder_(folder,'Digital Prototype — TEST ONLY');
     const now = new Date();
@@ -69,6 +80,7 @@ function saveDigitalRelease(data) {
     body.appendParagraph('Consent acknowledgement: ' + (data.consentAcknowledged ? 'Confirmed' : 'Not confirmed'));
     body.appendParagraph('Signed/submitted at: ' + now.toISOString());
     body.appendParagraph('Staff member: ' + String(data.staffName));
+    body.appendParagraph('Submitting agency: ' + String(data.agencyName));
     body.appendParagraph('USDA NONDISCRIMINATION STATEMENT').setHeading(DocumentApp.ParagraphHeading.HEADING2);
     body.appendParagraph(DIGITAL_RELEASE_PROTO.USDA);
     doc.saveAndClose();
@@ -80,11 +92,17 @@ function saveDigitalRelease(data) {
       const photo = subfolder.createFile(digitalProtoBlob_(data.referencePhoto,id + '-reference.jpg','image/jpeg'));
       photoUrl = photo.getUrl();
     }
-    sheet.appendRow([id,data.subjectFirstName,data.subjectLastName,data.subjectRelationship,
+    const recordValues = [id,data.subjectFirstName,data.subjectLastName,data.subjectRelationship,
       !!data.isMinor,data.guardianFirstName,data.guardianLastName,data.eventId,data.eventName,
       data.releaseDate,data.permissionStatus,data.signerAddress,data.signerPhone,data.signerOver18,
       DIGITAL_RELEASE_PROTO.VERSION,true,true,data.staffName,data.notes,pdf.getUrl(),photoUrl,
-      now,'PROTOTYPE_NOT_VALID_FOR_MEDIA_USE']);
+      now,'PROTOTYPE_NOT_VALID_FOR_MEDIA_USE'];
+    const headerRow = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
+    const row = Array(headerRow.length).fill('');
+    headers.forEach(function(h,i){const col=headerRow.indexOf(h);if(col>=0)row[col]=recordValues[i];});
+    row[headerRow.indexOf('Agency_Type')] = data.agencyType;
+    row[headerRow.indexOf('Agency_Name')] = String(data.agencyName).trim();
+    sheet.appendRow(row);
     return {success:true,releaseId:id,participant:subject,status:'PROTOTYPE',
       retentionUntil:'Pending approved records schedule',pdfUrl:pdf.getUrl()};
   } finally { lock.releaseLock(); }
